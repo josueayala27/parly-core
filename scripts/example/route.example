@@ -1,0 +1,8 @@
+import express from 'express';
+import {name}Controller from '../controllers/{name}.controller';
+
+const router = express.Router();
+
+router.get('/', {name}Controller.init);
+
+export default router;

@@ -3,7 +3,3 @@ export const sayHello = async (req, res) => {
     message: 'Hello from api.'
   });
 };
-
-export default {
-  
-};
