@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken';
-import axios from 'axios';
+import { get } from 'axios';
 
 export const getUserByGoogleToken = async (token) => {
-  const { data } = await axios.get(
+  const { data } = await get(
     `https://www.googleapis.com/oauth2/v3/userinfo?access_token="${token}"`
   );
   return data;

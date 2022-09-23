@@ -13,5 +13,6 @@ module.exports = {
     'prettier/prettier': 'error',
     'no-unused-vars': 'warn',
     'no-console': 'off',
+    camelcase: 'off',
   },
 };

@@ -1,19 +1,26 @@
 import { registerUser } from '../services/auth.service';
-import { getUserByGoogleToken, generateToken } from '../services/token.service';
+import { getUserByGoogleToken } from '../services/token.service';
 
-export const authWithGoogle = async ({ body: { token } }, res, next) => {
+export const authWithGoogle = async ({ body }, res, next) => {
   try {
-    const userInformation = await getUserByGoogleToken(token);
-    const registeredUser = await registerUser(userInformation);
+    const { name, email, picture, email_verified } = await getUserByGoogleToken(
+      body.token
+    );
 
-    res.send({
-      access_token: userInformation,
-      token_type: 'Bearer',
-      is_login: true,
-    });
+    const token = await registerUser(
+      {
+        full_name: name,
+        email,
+        avatar: picture,
+        email_confirmed_at: email_verified ? new Date() : null,
+      },
+      '30ff40c1-99df-424a-8fcc-36dc8d2e6942'
+    );
+
+    res.send({ auth_token: token, token_type: 'Bearer' });
   } catch (error) {
     next(error);
   }
 };
 
-export const simpleAuth = () => null;
+export const authWithGithub = () => null;
