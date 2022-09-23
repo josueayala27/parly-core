@@ -1,8 +1,12 @@
-const { usage } = require("yargs");
+const { usage } = require('yargs');
 const { ShellString } = require('shelljs');
 
-const options = usage("Usage: -n <name>")
-  .option("n", { alias: "name", describe: "", type: "string", demandOption: true }).argv;
+const options = usage('Usage: -n <name>').option('n', {
+  alias: 'name',
+  describe: '',
+  type: 'string',
+  demandOption: true,
+}).argv;
 
 const routeString = (name) => `
 import express from 'express';
@@ -29,4 +33,3 @@ const generateFile = (fileName, path, content) => {
 
 generateFile(options.name, 'route', routeString(options.name));
 generateFile(options.name, 'controller', controllerString(options.name));
-

@@ -9,9 +9,11 @@ export const authWithGoogle = async ({ body: { token } }, res, next) => {
     res.send({
       access_token: userInformation,
       token_type: 'Bearer',
-      is_login: true
+      is_login: true,
     });
   } catch (error) {
-    next(error)
+    next(error);
   }
 };
+
+export const simpleAuth = () => null;

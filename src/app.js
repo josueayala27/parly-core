@@ -1,8 +1,8 @@
 import express from 'express';
-import routes from './routes';
 import xss from 'xss-clean';
-import createError from './utils/createError';
 import httpStatus from 'http-status';
+import routes from './routes';
+import createError from './utils/createError';
 
 const app = express();
 
@@ -12,12 +12,14 @@ app.use(xss());
 
 app.use('/api', routes);
 
-app.use((req, res, next) => { next(createError(httpStatus.NOT_FOUND, "Page not found")) });
-app.use((error, req, res, next) => {
+app.use((_, res, next) => {
+  next(createError(httpStatus.NOT_FOUND, 'Page not found'));
+});
+app.use((error, _, res) => {
   res.status(error.status || httpStatus.INTERNAL_SERVER_ERROR).send({
-    status: "Error",
-    message: error.message
-  })
+    status: 'Error',
+    message: error.message,
+  });
 });
 
 export default app;

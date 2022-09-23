@@ -5,5 +5,5 @@ const PORT = process.env.PORT || 3000;
 
 const httpServer = createServer(app);
 httpServer.listen(PORT, () => {
-  console.log('Server has started...')
-})
+  console.log('Server has started...');
+});

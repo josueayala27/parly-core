@@ -1,5 +1,7 @@
-export const sayHello = async (req, res) => {
+const sayHello = async (req, res) => {
   res.send({
-    message: 'Hello from api.'
+    message: 'Hello from api.',
   });
 };
+
+export default sayHello;

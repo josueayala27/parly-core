@@ -1,5 +1,5 @@
 import express from 'express';
-import { sayHello } from '../controllers/hello.controller';
+import sayHello from '../controllers/hello.controller';
 
 const router = express.Router();
 

@@ -1,4 +1,3 @@
-
 import express from 'express';
 import { authWithGoogle } from '../controllers/auth.controller';
 

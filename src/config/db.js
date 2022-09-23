@@ -1,6 +1,7 @@
-const { Sequelize } = require('sequelize');
 import dotenv from 'dotenv';
-const path = require('path');
+import { Sequelize } from 'sequelize';
+import path from 'path';
+
 dotenv.config({ path: path.join(__dirname, '../../.env') });
 
 const {
