@@ -15,7 +15,8 @@ app.use('/api', routes);
 app.use((_, res, next) => {
   next(createError(httpStatus.NOT_FOUND, 'Page not found'));
 });
-app.use((error, _, res) => {
+
+app.use((error, _, res, next) => {
   res.status(error.status || httpStatus.INTERNAL_SERVER_ERROR).send({
     status: 'Error',
     message: error.message,
