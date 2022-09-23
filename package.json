@@ -15,15 +15,20 @@
     "nodemon": "^2.0.20"
   },
   "dependencies": {
+    "axios": "^0.27.2",
+    "dotenv": "^16.0.2",
     "express": "^4.18.1",
     "http": "^0.0.1-security",
+    "http-status": "^1.5.3",
     "joi": "^17.6.0",
+    "jsonwebtoken": "^8.5.1",
     "pg": "^8.8.0",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.23.0",
     "sequelize-cli": "^6.4.1",
     "shelljs": "^0.8.5",
     "socket.io": "^4.5.2",
+    "xss-clean": "^0.1.1",
     "yargs": "^17.5.1"
   }
 }

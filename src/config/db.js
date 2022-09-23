@@ -1,4 +1,7 @@
 const { Sequelize } = require('sequelize');
+import dotenv from 'dotenv';
+const path = require('path');
+dotenv.config({ path: path.join(__dirname, '../../.env') });
 
 const {
   DATABASE,

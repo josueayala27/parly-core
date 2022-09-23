@@ -1,9 +1,9 @@
 
 import express from 'express';
-import { init } from '../controllers/auth.controller';
+import { authWithGoogle } from '../controllers/auth.controller';
 
 const router = express.Router();
 
-router.get('/', init);
+router.post('/google', authWithGoogle);
 
 export default router;
