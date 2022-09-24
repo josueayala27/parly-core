@@ -3,6 +3,7 @@ import xss from 'xss-clean';
 import httpStatus from 'http-status';
 import routes from './routes';
 import createError from './utils/createError';
+import './models/index';
 
 const app = express();
 

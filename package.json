@@ -33,6 +33,7 @@
     "sequelize": "^6.23.0",
     "sequelize-cli": "^6.4.1",
     "shelljs": "^0.8.5",
+    "snakecase-keys": "^5.4.4",
     "socket.io": "^4.5.2",
     "xss-clean": "^0.1.1",
     "yargs": "^17.5.1"

@@ -1,5 +1,8 @@
 import jwt from 'jsonwebtoken';
 import { get } from 'axios';
+import snakecaseKeys from 'snakecase-keys';
+import Identity from '../models/identity.model';
+import User from '../models/user.model';
 
 export const getUserByGoogleToken = async (token) => {
   const { data } = await get(
@@ -8,6 +11,7 @@ export const getUserByGoogleToken = async (token) => {
   return data;
 };
 
-export const getUserByGithubToken = () => 'GitHub user token authentication';
-
 export const generateToken = async (sub) => jwt.sign({ sub }, 'TOKEN_SECRET');
+
+export const validateToken = async (token) =>
+  Identity.findOne({ where: { token }, include: User });

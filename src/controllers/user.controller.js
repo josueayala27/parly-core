@@ -4,4 +4,10 @@ const init = async (req, res) => {
   });
 };
 
+export const getUser = async (req, res) => {
+  res.send({
+    data: req.user,
+  });
+};
+
 export default init;

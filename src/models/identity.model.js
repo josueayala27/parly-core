@@ -12,14 +12,15 @@ const Identity = database.define(
     token: {
       type: DataTypes.STRING,
     },
-    user_id: {
+    userId: {
       type: DataTypes.UUID,
     },
-    identity_provider_id: {
+    identityProviderId: {
+      field: 'identity_provider_id',
       type: DataTypes.UUID,
     },
   },
-  { timestamps: false }
+  { timestamps: false, underscored: true }
 );
 
 export default Identity;

@@ -1,8 +1,9 @@
 import express from 'express';
-import init from '../controllers/user.controller';
+import { getUser } from '../controllers/user.controller';
+import auth from '../middlewares/auth';
 
 const router = express.Router();
 
-router.get('/', init);
+router.get('/me', auth, getUser);
 
 export default router;

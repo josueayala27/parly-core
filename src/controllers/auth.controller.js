@@ -9,10 +9,10 @@ export const authWithGoogle = async ({ body }, res, next) => {
 
     const token = await handleAuth(
       {
-        full_name: name,
+        fullName: name,
         email,
         avatar: picture,
-        email_confirmed_at: email_verified ? new Date() : null,
+        emailConfirmedAt: email_verified ? new Date() : null,
       },
       '30ff40c1-99df-424a-8fcc-36dc8d2e6942'
     );
