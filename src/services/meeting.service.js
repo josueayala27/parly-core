@@ -10,11 +10,11 @@ export const createMeeting = async ({ title, user_id }) => {
     user_id,
   });
 
-  const userRelation = await service.getUser();
+  const user = await service.getUser();
 
   return {
     ...service.toJSON(),
-    user: userRelation,
+    user,
   };
 };
 
