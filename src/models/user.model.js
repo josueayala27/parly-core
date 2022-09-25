@@ -9,10 +9,9 @@ const User = database.define(
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
     },
-    fullName: {
+    full_name: {
       type: DataTypes.STRING,
       allowNull: false,
-      field: 'full_name',
     },
     email: {
       type: DataTypes.STRING,
@@ -27,33 +26,22 @@ const User = database.define(
       type: DataTypes.STRING,
       allowNull: true,
     },
-    emailConfirmedAt: {
+    email_confirmed_at: {
       type: DataTypes.TIME,
       allowNull: true,
-      field: 'email_confirmed_at',
     },
-    lastSignInAt: {
+    last_sign_in_at: {
       type: DataTypes.TIME,
       defaultValue: new Date(),
-      field: 'last_sign_in_at',
     },
-    rawAppMetaData: {
+    raw_app_meta_data: {
       type: DataTypes.JSONB,
       allowNull: false,
-      field: 'raw_app_meta_data',
     },
   },
   {
     defaultScope: {
-      attributes: [
-        'id',
-        'full_name',
-        'email',
-        'avatar',
-        'phone',
-        'email_confirmed_at',
-        'last_sign_in_at',
-      ],
+      attributes: { exclude: ['raw_app_meta_data'] },
     },
     timestamps: false,
     underscored: true,

@@ -11,10 +11,13 @@ const tokenValidator = async (req, _, next) => {
   }
 
   const authToken = req.headers[AUTH_HEADER].split(' ')[1];
+
   const { user, token } = await validateToken(authToken);
 
   if (!token) {
-    next(createError(httpStatus.UNAUTHORIZED, 'Token authorization expired.'));
+    next(
+      createError(httpStatus.UNAUTHORIZED, 'Authentication header has expired.')
+    );
   }
 
   req.user = user;
