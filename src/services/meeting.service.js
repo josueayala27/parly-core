@@ -18,4 +18,5 @@ export const createMeeting = async ({ title, user_id }) => {
   };
 };
 
-export const getAllMeetings = () => 'Get all meetings';
+export const getMeetings = async (user) =>
+  Meeting.findAll({ where: { user_id: user } });
