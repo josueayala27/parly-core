@@ -12,11 +12,10 @@ const Identity = database.define(
     token: {
       type: DataTypes.STRING,
     },
-    userId: {
+    user_id: {
       type: DataTypes.UUID,
     },
-    identityProviderId: {
-      field: 'identity_provider_id',
+    identity_provider_id: {
       type: DataTypes.UUID,
     },
   },

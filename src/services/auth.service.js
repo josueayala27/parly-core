@@ -16,7 +16,7 @@ export const createIdentity = async (userId, provider) => {
 export const handleAuth = async (user, provider) => {
   const [{ id }] = await User.findOrCreate({
     where: { email: user.email },
-    defaults: { ...user, rawAppMetaData: user },
+    defaults: { ...user, raw_app_meta_data: user },
   });
 
   return createIdentity(id, provider);
