@@ -1,10 +1,4 @@
-import { createMeeting } from '../services/meeting.service';
-
-export const init = async (req, res) => {
-  res.send({
-    message: 'Hello from meeting controller.',
-  });
-};
+import { createMeeting, searchMeeting } from '../services/meeting.service';
 
 export const storeMeeting = async ({ user, body }, res, next) => {
   try {
@@ -12,6 +6,16 @@ export const storeMeeting = async ({ user, body }, res, next) => {
       title: body.title,
       user_id: user.id,
     });
+
+    res.send({ data: meeting });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const showMeeting = async ({ params }, res, next) => {
+  try {
+    const meeting = await searchMeeting(params.id);
 
     res.send({ data: meeting });
   } catch (error) {
