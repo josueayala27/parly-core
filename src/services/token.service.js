@@ -1,8 +1,9 @@
 import jwt from 'jsonwebtoken';
 import { get } from 'axios';
-import snakecaseKeys from 'snakecase-keys';
+import httpStatus from 'http-status';
 import Identity from '../models/identity.model';
 import User from '../models/user.model';
+import createError from '../utils/createError';
 
 export const getUserByGoogleToken = async (token) => {
   const { data } = await get(
@@ -13,5 +14,12 @@ export const getUserByGoogleToken = async (token) => {
 
 export const generateToken = async (sub) => jwt.sign({ sub }, 'TOKEN_SECRET');
 
-export const validateToken = async (token) =>
-  Identity.findOne({ where: { token }, include: User });
+export const validateToken = async (token) => {
+  const user = await Identity.findOne({ where: { token }, include: User });
+
+  if (!user) {
+    throw createError(httpStatus.NOT_FOUND, 'Invalid authorization token.');
+  }
+
+  return user;
+};
