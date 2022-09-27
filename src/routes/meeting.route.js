@@ -1,9 +1,9 @@
 import express from 'express';
-import { getUser } from '../controllers/user.controller';
+import { storeMeeting } from '../controllers/meeting.controller';
 import auth from '../middlewares/auth';
 
 const router = express.Router();
 
-router.get('/me', auth, getUser);
+router.post('/', auth, storeMeeting);
 
 export default router;

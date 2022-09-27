@@ -1,17 +1,23 @@
-import httpStatus from "http-status";
-import User from "../models/user.model";
-import createError from "../utils/createError";
+import User from '../models/user.model';
+import Identity from '../models/identity.model';
+import { generateToken } from './token.service';
 
-export const registerUser = async (userInformation) => {
-  if (await User.findOne({ email: userInformation.email })) {
-    throw new createError(httpStatus.BAD_REQUEST, "Email already taken.");
-  }
-
-  return User.create({
-    full_name: userInformation.name,
-    email,
-    vatar: userInformation.picture,
-    last_sign_in_at: new Date(),
-    raw_app_meta_data: userInformation,
+export const createIdentity = async ({ user, provider }) => {
+  const userToken = await generateToken(user);
+  const { token } = await Identity.create({
+    user_id: user,
+    identity_provider_id: provider,
+    userToken,
   });
+
+  return token;
+};
+
+export const handleAuth = async (user, provider) => {
+  const [{ id }] = await User.findOrCreate({
+    where: { email: user.email },
+    defaults: { ...user, raw_app_meta_data: user },
+  });
+
+  return createIdentity({ user: id, provider });
 };
