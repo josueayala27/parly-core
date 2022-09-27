@@ -5,9 +5,9 @@
   "author": "Josué Ayala <ayalavalencia11@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon --exec babel-node ./src",
+    "dev": "nodemon --exec babel-node -r dotenv/config ./src",
     "build": "webpack --config webpack.config.js",
-    "start": "node ./dist/api.bundle.js",
+    "start": "node -r dotenv/config ./dist/api.bundle.js",
     "generate:api": "node ./scripts/generate/api"
   },
   "engines": {
