@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "nodemon --exec babel-node ./src",
     "build": "webpack --config webpack.config.js",
-    "start": "npm run build && node ./dist/api.bundle.js",
+    "start": "node ./dist/api.bundle.js",
     "generate:api": "node ./scripts/generate/api"
   },
   "engines": {
