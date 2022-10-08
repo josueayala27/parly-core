@@ -38,12 +38,28 @@ const User = database.define(
       type: DataTypes.JSONB,
       allowNull: false,
     },
+    user_gender_id: {
+      type: DataTypes.UUID,
+    },
+    created_at: {
+      type: DataTypes.TIME,
+    },
+    updated_at: {
+      type: DataTypes.TIME,
+    },
   },
   {
     defaultScope: {
-      attributes: { exclude: ['raw_app_meta_data'] },
+      attributes: {
+        exclude: [
+          'raw_app_meta_data',
+          'user_gender_id',
+          'createdAt',
+          'updatedAt',
+        ],
+      },
     },
-    timestamps: false,
+    timestamps: true,
     underscored: true,
   }
 );

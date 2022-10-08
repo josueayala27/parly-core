@@ -1,20 +1,21 @@
+import findAuthProvider from '../services/auth_provider.service';
 import { handleAuth } from '../services/auth.service';
 import { getUserByGoogleToken } from '../services/token.service';
 
 export const authWithGoogle = async ({ body }, res, next) => {
   try {
-    const { name, email, picture, email_verified } = await getUserByGoogleToken(
-      body.token
-    );
+    const google = await getUserByGoogleToken(body.token);
 
+    const provider = await findAuthProvider('Google');
     const token = await handleAuth(
       {
-        full_name: name,
-        email,
-        avatar: picture,
-        email_confirmed_at: email_verified ? new Date() : null,
+        full_name: google.name,
+        email: google.email,
+        avatar: google.picture,
+        email_confirmed_at: google.email_verified ? new Date() : null,
       },
-      '30ff40c1-99df-424a-8fcc-36dc8d2e6942'
+      google,
+      provider.id
     );
 
     res.send({ auth_token: token, token_type: 'Bearer', provider: 'Google' });

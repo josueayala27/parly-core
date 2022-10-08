@@ -1,6 +1,6 @@
 import httpStatus from 'http-status';
 import createError from '../utils/createError';
-import Meeting from '../models/meeting.model';
+import Meeting from '../models/channel.model';
 
 export const createMeeting = async ({ title, user_id }) => {
   const service = await Meeting.create({

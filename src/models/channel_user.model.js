@@ -1,25 +1,25 @@
 import { DataTypes } from 'sequelize';
 import database from '../config/db';
 
-const Identity = database.define(
-  'identity',
+const ChannelUser = database.define(
+  'channel_user',
   {
     id: {
       primaryKey: true,
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
     },
-    token: {
-      type: DataTypes.STRING,
-    },
     user_id: {
       type: DataTypes.UUID,
     },
-    identity_provider_id: {
+    channel_id: {
       type: DataTypes.UUID,
     },
   },
-  { timestamps: false, underscored: true }
+  {
+    timestamps: true,
+    underscored: true,
+  }
 );
 
-export default Identity;
+export default ChannelUser;

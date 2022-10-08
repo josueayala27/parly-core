@@ -1,37 +1,35 @@
 import { DataTypes } from 'sequelize';
 import database from '../config/db';
 
-const Meeting = database.define(
-  'meeting',
+const Channel = database.define(
+  'channel',
   {
     id: {
       primaryKey: true,
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
     },
-    title: {
+    name: {
       type: DataTypes.STRING,
+      allowNull: true,
     },
-    allow_comments: {
+    description: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    is_group: {
       type: DataTypes.BOOLEAN,
+      allowNull: false,
     },
-    allow_screen_sharing: {
-      type: DataTypes.BOOLEAN,
-    },
-    allow_microphone: {
-      type: DataTypes.BOOLEAN,
-    },
-    allow_video: {
-      type: DataTypes.BOOLEAN,
-    },
-    user_id: {
+    message_id: {
       type: DataTypes.UUID,
+      allowNull: false,
     },
   },
   {
-    timestamps: false,
+    timestamps: true,
     underscored: true,
   }
 );
 
-export default Meeting;
+export default Channel;
