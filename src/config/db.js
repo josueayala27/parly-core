@@ -1,4 +1,5 @@
 import { Sequelize } from 'sequelize';
+import chalk from 'chalk';
 
 const {
   DATABASE,
@@ -17,10 +18,10 @@ const sequelize = new Sequelize(DATABASE, DATABASE_USER, DATABASE_PASSWORD, {
 
 sequelize.sync().then(
   () => {
-    console.log('DB connection sucessful.');
+    console.log(`${chalk.green('ℹ')} Database connected successfully`);
   },
   (err) => {
-    console.log(err);
+    console.log(chalk.red(`✖ ${err}`));
   }
 );
 
