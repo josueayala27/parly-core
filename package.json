@@ -8,7 +8,8 @@
     "dev": "nodemon --exec babel-node -r dotenv/config ./src",
     "build": "webpack --config webpack.config.js",
     "start": "node -r dotenv/config ./dist/api.bundle.js",
-    "generate:api": "node ./scripts/generate/api"
+    "generate:api": "node ./scripts/generate/api",
+    "database:seed": "babel-node -r dotenv/config ./src/seeders"
   },
   "engines": {
     "node": "16.x"
