@@ -16,14 +16,16 @@ const sequelize = new Sequelize(DATABASE, DATABASE_USER, DATABASE_PASSWORD, {
   logging: false,
 });
 
-sequelize.sync().then(
-  () => {
+const sync = async () => {
+  try {
+    await sequelize.sync();
     console.log(`${chalk.green('ℹ')} Database synced successfully.`);
-  },
-  (err) => {
-    console.log(chalk.red(`✖ ${err}`));
+  } catch (error) {
+    console.log(chalk.red(`✖ ${error}`));
   }
-);
+};
+
+sync();
 
 export default sequelize;
 

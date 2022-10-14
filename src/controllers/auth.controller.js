@@ -6,7 +6,7 @@ export const authWithGoogle = async ({ body }, res, next) => {
   try {
     const google = await getUserByGoogleToken(body.token);
 
-    const provider = await findAuthProvider('Google');
+    const { provider, id } = await findAuthProvider('Google');
     const token = await handleAuth(
       {
         full_name: google.name,
@@ -15,10 +15,10 @@ export const authWithGoogle = async ({ body }, res, next) => {
         email_confirmed_at: google.email_verified ? new Date() : null,
       },
       google,
-      provider.id
+      id
     );
 
-    res.send({ auth_token: token, token_type: 'Bearer', provider: 'Google' });
+    res.send({ auth_token: token, token_type: 'Bearer', provider });
   } catch (error) {
     next(error);
   }

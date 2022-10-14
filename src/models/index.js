@@ -9,7 +9,7 @@ import './channel_user.model';
 import './message.model';
 import './message_reaction.model';
 
-User.hasMany(PersonalAccessToken, { foreignKey: 'id' });
-PersonalAccessToken.belongsTo(User, { foreignKey: 'user_id' });
+User.hasMany(PersonalAccessToken);
+PersonalAccessToken.belongsTo(User);
 
-User.belongsTo(UserGender, { foreignKey: 'user_gender_id' });
+User.belongsTo(UserGender);
