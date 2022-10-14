@@ -52,12 +52,6 @@ const User = database.define(
       type: DataTypes.UUID,
       references: { model: UserGender, key: 'id' },
     },
-    created_at: {
-      type: DataTypes.TIME,
-    },
-    updated_at: {
-      type: DataTypes.TIME,
-    },
   },
   {
     defaultScope: {
@@ -67,6 +61,8 @@ const User = database.define(
           'user_gender_id',
           'createdAt',
           'updatedAt',
+          'email_confirmed_at',
+          'last_sign_in_at',
         ],
       },
     },
