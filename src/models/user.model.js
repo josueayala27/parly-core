@@ -1,5 +1,7 @@
 import { DataTypes } from 'sequelize';
 import database from '../config/db';
+import UserGender from './user_gender.model';
+import UserState from './user_state.model';
 
 const User = database.define(
   'user',
@@ -26,6 +28,10 @@ const User = database.define(
       type: DataTypes.STRING,
       allowNull: true,
     },
+    bio: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
     email_confirmed_at: {
       type: DataTypes.TIME,
       allowNull: true,
@@ -38,8 +44,13 @@ const User = database.define(
       type: DataTypes.JSONB,
       allowNull: false,
     },
+    user_state: {
+      type: DataTypes.UUID,
+      references: { model: UserState, key: 'id' },
+    },
     user_gender_id: {
       type: DataTypes.UUID,
+      references: { model: UserGender, key: 'id' },
     },
     created_at: {
       type: DataTypes.TIME,

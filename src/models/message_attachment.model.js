@@ -1,29 +1,34 @@
 import { DataTypes } from 'sequelize';
 import database from '../config/db';
 import Message from './message.model';
-import User from './user.model';
 
-const MessageReaction = database.define(
-  'message_reaction',
+const MessageAttachment = database.define(
+  'message_attachment',
   {
     id: {
       primaryKey: true,
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
     },
-    reaction: {
+    content_type: {
       type: DataTypes.STRING,
+      allowNull: false,
+    },
+    filename: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    url: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    size: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     message_id: {
       type: DataTypes.UUID,
-      allowNull: false,
       references: { model: Message, key: 'id' },
-    },
-    user_id: {
-      type: DataTypes.UUID,
-      allowNull: false,
-      references: { model: User, key: 'id' },
     },
   },
   {
@@ -32,4 +37,4 @@ const MessageReaction = database.define(
   }
 );
 
-export default MessageReaction;
+export default MessageAttachment;

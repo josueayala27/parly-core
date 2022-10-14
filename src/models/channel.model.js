@@ -1,5 +1,6 @@
 import { DataTypes } from 'sequelize';
 import database from '../config/db';
+import Message from './message.model';
 
 const Channel = database.define(
   'channel',
@@ -24,6 +25,7 @@ const Channel = database.define(
     message_id: {
       type: DataTypes.UUID,
       allowNull: false,
+      references: { model: Message, key: 'id' },
     },
   },
   {

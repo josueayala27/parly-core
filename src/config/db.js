@@ -18,7 +18,7 @@ const sequelize = new Sequelize(DATABASE, DATABASE_USER, DATABASE_PASSWORD, {
 
 sequelize.sync().then(
   () => {
-    console.log(`${chalk.green('ℹ')} Database connected successfully`);
+    console.log(`${chalk.green('ℹ')} Database synced successfully.`);
   },
   (err) => {
     console.log(chalk.red(`✖ ${err}`));
@@ -26,3 +26,5 @@ sequelize.sync().then(
 );
 
 export default sequelize;
+
+// postgres://postgres:postgrespw@localhost:55000

@@ -1,5 +1,7 @@
 import { DataTypes } from 'sequelize';
 import database from '../config/db';
+import Channel from './channel.model';
+import User from './user.model';
 
 const ChannelUser = database.define(
   'channel_user',
@@ -11,9 +13,11 @@ const ChannelUser = database.define(
     },
     user_id: {
       type: DataTypes.UUID,
+      references: { model: User, key: 'id' },
     },
     channel_id: {
       type: DataTypes.UUID,
+      references: { model: Channel, key: 'id' },
     },
   },
   {

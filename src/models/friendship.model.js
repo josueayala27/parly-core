@@ -1,29 +1,34 @@
 import { DataTypes } from 'sequelize';
 import database from '../config/db';
-import AuthProvider from './auth_provider.model';
+import FriendshipState from './friendship_state.model';
 import User from './user.model';
 
-const PersonalAccessToken = database.define(
-  'personal_access_token',
+const Friendship = database.define(
+  'friendship',
   {
     id: {
       primaryKey: true,
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
     },
-    token: {
-      type: DataTypes.STRING,
+    is_readed: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
     },
     user_id: {
       type: DataTypes.UUID,
       references: { model: User, key: 'id' },
     },
-    auth_provider_id: {
+    friend_id: {
       type: DataTypes.UUID,
-      references: { model: AuthProvider, key: 'id' },
+      references: { model: User, key: 'id' },
+    },
+    friendship_state: {
+      type: DataTypes.UUID,
+      references: { model: FriendshipState, key: 'id' },
     },
   },
   { timestamps: true, underscored: true }
 );
 
-export default PersonalAccessToken;
+export default Friendship;

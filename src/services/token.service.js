@@ -21,8 +21,6 @@ export const validateToken = async (token) => {
     include: [{ model: User, include: [UserGender] }],
   });
 
-  console.log(user);
-
   if (!user) {
     throw createError(httpStatus.NOT_FOUND, 'Invalid authorization token.');
   }
