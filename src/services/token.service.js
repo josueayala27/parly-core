@@ -7,10 +7,14 @@ import createError from '../utils/createError';
 import UserGender from '../models/user_gender.model';
 
 export const getUserByGoogleToken = async (token) => {
-  const { data } = await get(
-    `https://www.googleapis.com/oauth2/v3/userinfo?access_token="${token}"`
-  );
-  return data;
+  try {
+    const { data } = await get(
+      `https://www.googleapis.com/oauth2/v3/userinfo?access_token="${token}"`
+    );
+    return data;
+  } catch (error) {
+    throw createError(httpStatus.NOT_FOUND, 'Invalid google token.');
+  }
 };
 
 export const generateToken = async (sub) => jwt.sign({ sub }, 'TOKEN_SECRET');
@@ -20,8 +24,6 @@ export const validateToken = async (token) => {
     where: { token },
     include: [{ model: User, include: [UserGender] }],
   });
-
-  console.log(user);
 
   if (!user) {
     throw createError(httpStatus.NOT_FOUND, 'Invalid authorization token.');
