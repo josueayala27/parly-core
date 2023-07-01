@@ -6,12 +6,6 @@
     "sourceMap": true,
     "strict": true,
     "esModuleInterop": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"],
-      "@app": ["src/app"],
-      "@routes": ["src/routes"]
-    },
     "resolveJsonModule": true,
     "esModuleInterop": true
   },
