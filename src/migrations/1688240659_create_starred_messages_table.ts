@@ -2,14 +2,11 @@ import { Kysely, sql } from 'kysely';
 
 export async function up(db: Kysely<any>): Promise<void> {
   await db.schema
-    .createTable('channels')
+    .createTable('starred_messages')
     .addColumn('id', 'serial', (col) => col.primaryKey())
-    .addColumn('name', 'varchar', (col) => col.notNull())
-    .addColumn('description', 'varchar')
-    .addColumn('image', 'varchar')
-    .addColumn('invite_hash', 'varchar')
-    .addColumn('users_can_edit', 'boolean')
-    .addColumn('users_can_send_messages', 'boolean')
+    .addColumn('message_id', 'integer', (col) =>
+      col.references('messages.id').onDelete('cascade').notNull()
+    )
     .addColumn('created_at', 'timestamp', (col) =>
       col.defaultTo(sql`now()`).notNull()
     )
@@ -17,5 +14,5 @@ export async function up(db: Kysely<any>): Promise<void> {
 }
 
 export async function down(db: Kysely<any>): Promise<void> {
-  await db.schema.dropTable('channels').execute();
+  await db.schema.dropTable('starred_messages').execute();
 }
