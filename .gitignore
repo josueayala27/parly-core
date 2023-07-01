@@ -1,1 +1,13 @@
+.output
+.nuxt
+dist
+
 node_modules
+
+logs
+*.log
+
+.DS_Store
+
+.env.*
+!.env.example

@@ -7,6 +7,11 @@
   "plugins": ["@typescript-eslint", "prettier"],
   "parser": "@typescript-eslint/parser",
   "rules": {
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
+    "import/no-unresolved": "off",
+    "import/extensions": "off",
+    "no-console": "off",
+
+    "@typescript-eslint/no-explicit-any": "off"
   }
 }
