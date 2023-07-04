@@ -4,7 +4,13 @@ import createError from '../utils/createError';
 
 export const storeAuthProvider = async (provider: string) => {
   try {
-    db.insertInto('auth_providers').values({ provider }).execute();
+    const authProvider = db
+      .insertInto('auth_providers')
+      .values({ provider })
+      .returningAll()
+      .executeTakeFirst();
+
+    return authProvider;
   } catch (error) {
     throw createError(HttpStatusCode.BadRequest, error);
   }

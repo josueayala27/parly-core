@@ -12,10 +12,10 @@ export interface UserTable {
   username: string;
   avatar: string;
   email: string;
-  bio: string;
-  email_confirmed_at: ColumnType<Date, string | undefined, never>;
+  bio: string | undefined;
+  email_confirmed_at: ColumnType<Date, string | undefined, never> | any;
   raw_meta_data: any;
-  gender_id: number;
+  gender_id: number | undefined;
   created_at: ColumnType<Date, string | undefined, never>;
 }
 

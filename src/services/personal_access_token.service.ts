@@ -2,7 +2,6 @@ import axios, { HttpStatusCode } from 'axios';
 import httpStatus from 'http-status';
 import jwt from 'jsonwebtoken';
 import createError from '../utils/createError';
-// import { UserTable } from '../models/user.model';
 import db from '../config/database';
 
 export const getUserByGoogleToken = async (token: string) => {
@@ -16,13 +15,16 @@ export const getUserByGoogleToken = async (token: string) => {
   }
 };
 
-export const generateToken = async (userId: number, authProviderId: number) => {
+export const generateToken = async (
+  userId: number | undefined,
+  authProviderId: number
+) => {
   try {
-    const token = jwt.sign({ userId }, 'TOKEN_SECRET');
+    const token = jwt.sign({}, 'TOKEN_SECRET');
     db.insertInto('personal_access_tokens')
       .values({
         token,
-        user_id: userId,
+        user_id: userId as number,
         auth_provider_id: authProviderId,
       })
       .execute();

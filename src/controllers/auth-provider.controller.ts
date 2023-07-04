@@ -10,8 +10,8 @@ export const createAuthProvider = async (
   next: NextFunction
 ) => {
   try {
-    const message = await storeAuthProvider(body.provider);
-    res.json({ message });
+    const response = await storeAuthProvider(body.provider);
+    res.json(response);
   } catch (error) {
     next(error);
   }
