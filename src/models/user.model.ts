@@ -9,6 +9,13 @@ import {
 export interface UserTable {
   id: Generated<number>;
   full_name: string;
+  username: string;
+  avatar: string;
+  email: string;
+  bio: string;
+  email_confirmed_at: ColumnType<Date, string | undefined, never>;
+  raw_meta_data: any;
+  gender_id: number;
   created_at: ColumnType<Date, string | undefined, never>;
 }
 

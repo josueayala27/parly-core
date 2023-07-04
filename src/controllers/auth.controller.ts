@@ -1,14 +1,25 @@
 import { Request, Response, NextFunction } from 'express';
+import { getUserByGoogleToken } from '../services/token.service';
+import { retrieveAuthProviderByName } from '../services/auth_provider';
 
-export const authWithGoogle = (
-  { body }: Request,
+interface Body {
+  token: string;
+}
+
+interface _Request extends Request {
+  body: Body;
+}
+
+export const authWithGoogle = async (
+  { body }: _Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const googleToken = body.token;
+    const user = await getUserByGoogleToken(body.token);
+    const { id, provider } = await retrieveAuthProviderByName('Google');
 
-    res.json({ googleToken });
+    res.json({ user, provider: { id, provider } });
   } catch (error) {
     next(error);
   }
