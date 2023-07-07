@@ -34,7 +34,7 @@ export const authWithGoogle = async (
       providerId
     );
 
-    res.json({ provider, token });
+    res.json({ provider, token_type: 'Bearer', token });
   } catch (error) {
     next(error);
   }

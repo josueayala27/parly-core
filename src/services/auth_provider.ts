@@ -17,7 +17,10 @@ export const storeAuthProvider = async (provider: string) => {
 };
 
 export const retrieveAuthProviders = async () => {
-  const providers = await db.selectFrom('auth_providers').selectAll().execute();
+  const providers = await db
+    .selectFrom('auth_providers')
+    .select(['id', 'provider'])
+    .execute();
   if (providers) return providers;
 
   throw createError(HttpStatusCode.NoContent, 'No records found.');
