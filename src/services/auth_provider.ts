@@ -21,6 +21,7 @@ export const retrieveAuthProviders = async () => {
     .selectFrom('auth_providers')
     .select(['id', 'provider'])
     .execute();
+
   if (providers) return providers;
 
   throw createError(HttpStatusCode.NoContent, 'No records found.');
