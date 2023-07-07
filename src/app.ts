@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api', router);
 
 app.use((_req, _res, next) => {
-  next(createError(httpStatus.NOT_FOUND, 'Page not found'));
+  next(createError(httpStatus.NOT_FOUND, 'Page not found.'));
 });
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
