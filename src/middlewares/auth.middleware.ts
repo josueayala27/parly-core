@@ -18,9 +18,9 @@ export const auth = async (req: Request, _: Response, next: NextFunction) => {
 
     const authToken: string = req.headers[AUTH_HEADER]?.split(' ')[1] as string;
 
-    const user = await retrieveUserByToken(authToken);
+    const { user } = await retrieveUserByToken(authToken);
 
-    req.user = user;
+    req.user = user as any;
 
     next();
   } catch (error) {
