@@ -27,8 +27,8 @@ export const getChannel = async (
   next: NextFunction
 ) => {
   try {
-    const a = await retrieveChannelUsersById(req.params.channel);
-    res.json({ hola: a });
+    const response = await retrieveChannelUsersById(req.params.channel);
+    res.json(response);
   } catch (error) {
     next(error);
   }

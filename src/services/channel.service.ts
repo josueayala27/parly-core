@@ -1,4 +1,5 @@
 import crypto from 'crypto';
+import { jsonObjectFrom } from 'kysely/helpers/postgres';
 import db from '../config/database';
 import { NewUserChannelSettings } from '../models/user_channel_settings';
 
@@ -58,6 +59,14 @@ export const retrieveChannelUsersById = async (channelId: string) => {
   const users = await db
     .selectFrom('channel_users')
     .selectAll()
+    .select((eb) =>
+      jsonObjectFrom(
+        eb
+          .selectFrom('users as user')
+          .selectAll()
+          .whereRef('user.id', '=', 'channel_users.user_id')
+      ).as('user')
+    )
     .where('channel_id', '=', channelId as any)
     .execute();
 

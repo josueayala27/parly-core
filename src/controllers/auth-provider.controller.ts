@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import {
   retrieveAuthProviders,
   storeAuthProvider,
-} from '../services/auth_provider';
+} from '../services/auth_provider.service';
 
 export const createAuthProvider = async (
   { body }: Request,
