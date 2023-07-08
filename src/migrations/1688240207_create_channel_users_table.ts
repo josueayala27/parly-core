@@ -10,6 +10,7 @@ export async function up(db: Kysely<any>): Promise<void> {
     .addColumn('channel_id', 'integer', (col) =>
       col.references('channels.id').onDelete('cascade').notNull()
     )
+    .addColumn('is_admin', 'boolean')
     .addColumn('created_at', 'timestamp', (col) =>
       col.defaultTo(sql`now()`).notNull()
     )

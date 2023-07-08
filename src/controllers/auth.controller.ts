@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { getUserByGoogleToken } from '../services/personal_access_token.service';
-import { retrieveAuthProviderByName } from '../services/auth_provider';
+import { retrieveAuthProviderByName } from '../services/auth_provider.service';
 import { handleAuth } from '../services/auth.service';
 
 interface Body {

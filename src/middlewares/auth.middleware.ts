@@ -20,7 +20,7 @@ export const auth = async (req: Request, _: Response, next: NextFunction) => {
 
     const user = await retrieveUserByToken(authToken);
 
-    req.user = user;
+    req.user = user as any;
 
     next();
   } catch (error) {
