@@ -4,9 +4,10 @@ export async function up(db: Kysely<any>): Promise<void> {
   await db.schema
     .createTable('channels')
     .addColumn('id', 'serial', (col) => col.primaryKey())
-    .addColumn('name', 'varchar', (col) => col.notNull())
+    .addColumn('name', 'varchar')
     .addColumn('description', 'varchar')
     .addColumn('image', 'varchar')
+    .addColumn('is_group', 'boolean')
     .addColumn('invite_hash', 'varchar', (col) => col.notNull())
     .addColumn('users_can_edit', 'boolean')
     .addColumn('users_can_send_messages', 'boolean')

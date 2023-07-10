@@ -8,11 +8,12 @@ import {
 
 export interface ChannelTable {
   id: Generated<number>;
-  name: string;
-  description: string;
-  image: string;
+  name: string | undefined;
+  description: string | undefined;
+  image: string | undefined;
   invite_hash: string;
   users_can_edit: boolean;
+  is_group: boolean;
   users_can_send_messages: boolean;
   created_at: ColumnType<Date, string | undefined, never>;
 }

@@ -12,9 +12,7 @@ export const storeChannel = async (userId: number, users: number[]) => {
           .createHash('sha256')
           .update(crypto.randomBytes(32))
           .digest('hex'),
-        name: '',
-        description: '',
-        image: '',
+        is_group: users.length > 1,
         users_can_edit: true,
         users_can_send_messages: true,
       })

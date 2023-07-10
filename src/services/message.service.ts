@@ -46,13 +46,10 @@ export const retrieveLastMessages = async (userId: number) => {
     .selectFrom('channels as c')
     .innerJoin('channel_users as cu', 'c.id', 'cu.channel_id')
     .innerJoin(
-      (a) =>
-        a
+      (eb) =>
+        eb
           .selectFrom('messages')
-          .select([
-            'channel_id',
-            sql<string>`MAX(created_at)`.as('max_created_at'),
-          ])
+          .select(['channel_id', eb.fn.max('created_at').as('max_created_at')])
           .groupBy('channel_id')
           .as('subquery'),
       (join) => join.onRef('c.id', '=', 'subquery.channel_id')
@@ -63,21 +60,46 @@ export const retrieveLastMessages = async (userId: number) => {
         .onRef('subquery.max_created_at', '=', 'm.created_at')
     )
     .select([
-      'c.id',
-      'c.name',
-      'c.description',
-      'm.content as last_message',
+      'c.name as channel_name',
+      'm.content as message_content',
+      'c.is_group',
+      (eb) =>
+        eb
+          .selectFrom('channel_users as cucw')
+          .select((cu) =>
+            cu
+              .case()
+              .when('c.is_group', '=', true)
+              .then(null)
+              .else(
+                jsonObjectFrom(
+                  cu
+                    .selectFrom('users as user')
+                    .select(['id', 'full_name', 'username', 'avatar', 'email'])
+                    .whereRef('cucw.user_id', '=', 'user.id')
+                )
+              )
+              .end()
+              .as('user')
+          )
+          .whereRef('cucw.channel_id', '=', 'c.id')
+          .where('cucw.user_id', 'not in', [userId])
+          .limit(1)
+          .as('chat_whit'),
       (eb) =>
         jsonObjectFrom(
           eb
             .selectFrom('users as user')
             .select(['id', 'full_name', 'username', 'avatar', 'email'])
             .whereRef('user.id', '=', 'm.user_id')
-        ).as('user'),
+        ).as('message_author'),
     ])
     .where('cu.user_id', '=', userId)
     .orderBy('c.id', 'asc')
     .execute();
 
+  /**
+   * See the compiled query: https://kyse.link/?p=s&i=lKpijUEssTueQn4ij53U
+   */
   return lastMessages;
 };
