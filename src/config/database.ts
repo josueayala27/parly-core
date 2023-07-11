@@ -1,14 +1,17 @@
 import { Pool } from 'pg';
 import { Kysely, PostgresDialect } from 'kysely';
+import dotenv from 'dotenv';
 import { Database } from '../models';
+
+dotenv.config();
 
 const dialect = new PostgresDialect({
   pool: new Pool({
-    database: 'verceldb',
-    host: 'ep-restless-bush-063758-pooler.us-east-1.postgres.vercel-storage.com',
-    password: 'bShkU0F6KMZl',
-    user: 'default',
-    port: 5432,
+    database: process.env.DB_NAME,
+    host: process.env.DB_HOST,
+    password: process.env.DB_PASSWORD,
+    user: process.env.DB_USER,
+    port: process.env.PORT,
     ssl: true,
   }),
 });
