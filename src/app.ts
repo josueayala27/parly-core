@@ -14,7 +14,6 @@ app.use((_req, _res, next) => {
   next(createError(httpStatus.NOT_FOUND, 'Page not found.'));
 });
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((error: any, _req: Request, res: Response, next: NextFunction) => {
   res.status(error.status || httpStatus.INTERNAL_SERVER_ERROR).send({
     status: 'Error',
