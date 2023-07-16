@@ -1,6 +1,7 @@
 import { AuthProviderTable } from './auth_provider.model';
 import { ChannelTable } from './channel.model';
 import { ChannelUserTable } from './channel_user.model';
+import { LikeTable } from './likes.mode';
 import { MessageTable } from './message.model';
 import { PersonalAccessTokenTable } from './personal_access_token';
 import { UserTable } from './user.model';
@@ -14,4 +15,5 @@ export interface Database {
   channel_users: ChannelUserTable;
   user_channel_settings: UserChannelSettingsTable;
   messages: MessageTable;
+  likes: LikeTable;
 }

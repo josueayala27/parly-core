@@ -1,5 +1,4 @@
 import { jsonObjectFrom } from 'kysely/helpers/postgres';
-import { sql } from 'kysely';
 import db from '../config/database';
 
 export const storeMessage = async (
@@ -102,4 +101,15 @@ export const retrieveLastMessages = async (userId: number) => {
    * See the compiled query: https://kyse.link/?p=s&i=lKpijUEssTueQn4ij53U
    */
   return lastMessages;
+};
+
+export const storeMessageLikes = async (userId: number, messageId: number) => {
+  return db
+    .insertInto('likes')
+    .values({ user_id: userId, message_id: messageId })
+    .execute();
+};
+
+export const destroyLikeFromMessage = async (likeId: number) => {
+  return db.deleteFrom('likes').where('id', '=', likeId).execute();
 };
