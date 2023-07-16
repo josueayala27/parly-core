@@ -6,7 +6,7 @@ import { getMessages, sendMessage } from '../controllers/message.controller';
 const router: Router = express.Router();
 
 router.post('/', auth, createChannel);
-router.get('/:channel', auth, getChannel);
+router.get('/:channel/users', auth, getChannel);
 router.post('/:channel/messages', auth, sendMessage);
 router.get('/:channel/messages', auth, getMessages);
 

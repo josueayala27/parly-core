@@ -9,7 +9,8 @@ export async function up(db: Kysely<any>): Promise<void> {
     .addColumn('image', 'varchar')
     .addColumn('is_group', 'boolean')
     .addColumn('invite_hash', 'varchar', (col) => col.notNull())
-    .addColumn('users_can_edit', 'boolean')
+    .addColumn('users_can_edit_channel', 'boolean')
+    .addColumn('users_can_edit_messages', 'boolean')
     .addColumn('users_can_send_messages', 'boolean')
     .addColumn('created_at', 'timestamp', (col) =>
       col.defaultTo(sql`now()`).notNull()

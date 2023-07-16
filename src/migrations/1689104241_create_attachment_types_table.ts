@@ -2,15 +2,9 @@ import { Kysely, sql } from 'kysely';
 
 export async function up(db: Kysely<any>): Promise<void> {
   await db.schema
-    .createTable('messages')
+    .createTable('attachment_types')
     .addColumn('id', 'serial', (col) => col.primaryKey())
-    .addColumn('content', 'varchar')
-    .addColumn('channel_id', 'integer', (col) =>
-      col.references('channels.id').onDelete('cascade').notNull()
-    )
-    .addColumn('user_id', 'integer', (col) =>
-      col.references('users.id').onDelete('cascade').notNull()
-    )
+    .addColumn('type', 'varchar', (col) => col.notNull())
     .addColumn('created_at', 'timestamp', (col) =>
       col.defaultTo(sql`now()`).notNull()
     )
@@ -18,5 +12,5 @@ export async function up(db: Kysely<any>): Promise<void> {
 }
 
 export async function down(db: Kysely<any>): Promise<void> {
-  await db.schema.dropTable('messages').execute();
+  await db.schema.dropTable('attachment_types').execute();
 }
