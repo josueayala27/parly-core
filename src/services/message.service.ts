@@ -113,3 +113,23 @@ export const storeMessageLikes = async (userId: number, messageId: number) => {
 export const destroyLikeFromMessage = async (likeId: number) => {
   return db.deleteFrom('likes').where('id', '=', likeId).execute();
 };
+
+export const retrieveLikesFromMessage = async (messageId: number | string) => {
+  const likes = await db
+    .selectFrom('likes as l')
+    .innerJoin('messages as m', 'l.message_id', 'm.id')
+    .where('m.id', '=', messageId as number)
+    .select([
+      'l.id',
+      (eb) =>
+        jsonObjectFrom(
+          eb
+            .selectFrom('users as u')
+            .whereRef('u.id', '=', 'l.user_id')
+            .select(['u.id', 'u.full_name', 'u.username', 'u.avatar'])
+        ).as('user'),
+    ])
+    .execute();
+
+  return likes;
+};

@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import {
   destroyLikeFromMessage,
   retrieveLastMessages,
+  retrieveLikesFromMessage,
   retrieveMessagesByChannel,
   storeMessage,
   storeMessageLikes,
@@ -76,6 +77,19 @@ export const deleteMessageLike = async (
     await destroyLikeFromMessage(req.params.like as any);
 
     res.json({ message: 'The like was deleted.' });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getMessageLikes = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const likes = await retrieveLikesFromMessage(req.params.message);
+    res.json(likes);
   } catch (error) {
     next(error);
   }
