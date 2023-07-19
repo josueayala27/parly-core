@@ -1,4 +1,5 @@
-import { jsonObjectFrom } from 'kysely/helpers/postgres';
+import { jsonArrayFrom, jsonObjectFrom } from 'kysely/helpers/postgres';
+import { sql } from 'kysely';
 import db from '../config/database';
 
 export const storeMessage = async (
@@ -25,7 +26,20 @@ export const retrieveMessagesByChannel = async (channelId: string) => {
     .select([
       'id',
       'content',
-      'created_at',
+      (eb) =>
+        eb
+          .selectFrom('likes')
+          .select(sql`COUNT(*)`.as('count'))
+          .whereRef('likes.message_id', '=', 'messages.id')
+          // Same thing: .select((a) => a.fn.countAll().as('count'))
+          .as('count_likes'),
+      (eb) =>
+        jsonArrayFrom(
+          eb
+            .selectFrom('attachments')
+            .select(['id', 'filename', 'raw_meta_data', 'size'])
+            .whereRef('attachments.message_id', '=', 'message_id')
+        ).as('attachments'),
       (eb) =>
         jsonObjectFrom(
           eb
@@ -33,6 +47,7 @@ export const retrieveMessagesByChannel = async (channelId: string) => {
             .select(['id', 'full_name', 'username', 'avatar', 'email'])
             .whereRef('user.id', '=', 'messages.user_id')
         ).as('user'),
+      'created_at',
     ])
     .where('channel_id', '=', channelId as any)
     .execute();

@@ -1,3 +1,4 @@
+import { AttachmentTable } from './attachment.model';
 import { AuthProviderTable } from './auth_provider.model';
 import { ChannelTable } from './channel.model';
 import { ChannelUserTable } from './channel_user.model';
@@ -16,4 +17,5 @@ export interface Database {
   user_channel_settings: UserChannelSettingsTable;
   messages: MessageTable;
   likes: LikeTable;
+  attachments: AttachmentTable;
 }
