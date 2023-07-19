@@ -52,7 +52,10 @@ export const retrieveMessagesByChannel = async (channelId: string) => {
     .where('channel_id', '=', channelId as any)
     .execute();
 
-  return messages;
+  return messages.map((message) => ({
+    ...message,
+    count_likes: Number(message.count_likes),
+  }));
 };
 
 export const retrieveLastMessages = async (userId: number) => {
