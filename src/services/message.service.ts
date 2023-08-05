@@ -80,6 +80,9 @@ export const retrieveLastMessages = async (userId: number) => {
       'c.name as channel_name',
       'm.content as message_content',
       'c.is_group',
+      'c.id',
+      'c.image',
+      'm.created_at',
       (eb) =>
         eb
           .selectFrom('channel_users as cucw')

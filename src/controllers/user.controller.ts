@@ -9,9 +9,9 @@ export const getMe = async (
   try {
     const user = await db
       .selectFrom('users')
-      .select(['id', 'full_name', 'avatar', 'email', 'bio'])
+      .select(['full_name', 'avatar', 'email', 'bio'])
       .where('id', '=', req.user?.user_id as any)
-      .execute();
+      .executeTakeFirst();
     res.json(user);
   } catch (error) {
     next(error);
