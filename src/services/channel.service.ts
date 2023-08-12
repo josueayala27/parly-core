@@ -70,3 +70,13 @@ export const retrieveChannelUsersById = async (channelId: string) => {
 
   return users;
 };
+
+export const retrieveChannelInfo = async (channelId: number) => {
+  const channel = await db
+    .selectFrom('channels')
+    .select(['description', 'is_group'])
+    .where('channels.id', '=', channelId)
+    .executeTakeFirst();
+
+  return channel;
+};

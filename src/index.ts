@@ -1,7 +1,11 @@
+import { createServer } from 'http';
+
+import socket from './sockets';
 import app from './app';
 
-const PORT = 3001;
+const httpServer = createServer(app);
+socket(httpServer);
 
-app.listen(PORT, () => {
-  console.log(`Server running on ${process.env.APP_HOST}:${3001}`);
-});
+const PORT = process.env.PORT || 3001;
+
+httpServer.listen(PORT || 3000);

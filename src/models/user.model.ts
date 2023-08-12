@@ -8,6 +8,7 @@ import {
 
 export interface UserTable {
   id: Generated<number>;
+  socket_id: string;
   full_name: string;
   username: string;
   avatar: string;
