@@ -1,9 +1,23 @@
 import { NextFunction, Request, Response } from 'express';
 import {
+  getChannelIds,
   retrieveChannelInfo,
   retrieveChannelUsersById,
   storeChannel,
 } from '../services/channel.service';
+
+export const getChannels = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const ids = await getChannelIds(Number(req.user?.user_id));
+    res.json(ids);
+  } catch (error) {
+    next(error);
+  }
+};
 
 export const createChannel = async (
   req: Request,

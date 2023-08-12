@@ -3,6 +3,16 @@ import { jsonObjectFrom } from 'kysely/helpers/postgres';
 import db from '../config/database';
 import { NewUserChannelSettings } from '../models/user_channel_settings';
 
+export const getChannelIds = async (userId: number) => {
+  const ids = await db
+    .selectFrom('channel_users')
+    .select(['channel_id'])
+    .where('user_id', '=', userId)
+    .execute();
+
+  return ids.map((id) => id.channel_id);
+};
+
 export const storeChannel = async (userId: number, users: number[]) => {
   await db.transaction().execute(async (transaction) => {
     const channel = await transaction
