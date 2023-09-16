@@ -14,10 +14,35 @@ export const storeMessage = async (
       channel_id: channelId as any,
       user_id: userId,
     })
-    .returningAll()
+    .returning([
+      'id',
+      'content',
+      (eb) =>
+        eb
+          .selectFrom('likes')
+          .select(sql`COUNT(*)`.as('count'))
+          .whereRef('likes.message_id', '=', 'messages.id')
+          // Same thing: .select((a) => a.fn.countAll().as('count'))
+          .as('count_likes'),
+      (eb) =>
+        jsonArrayFrom(
+          eb
+            .selectFrom('attachments')
+            .select(['id', 'filename', 'raw_meta_data', 'size'])
+            .whereRef('attachments.message_id', '=', 'message_id')
+        ).as('attachments'),
+      (eb) =>
+        jsonObjectFrom(
+          eb
+            .selectFrom('users as user')
+            .select(['id', 'full_name', 'username', 'avatar', 'email'])
+            .whereRef('user.id', '=', 'messages.user_id')
+        ).as('user'),
+      'created_at',
+    ])
     .executeTakeFirst();
 
-  return message;
+  return { ...message, count_likes: Number(message?.count_likes) };
 };
 
 export const retrieveMessagesByChannel = async (channelId: string) => {
@@ -52,6 +77,9 @@ export const retrieveMessagesByChannel = async (channelId: string) => {
     .where('channel_id', '=', channelId as any)
     .execute();
 
+  /**
+   * Parse type for `count_likes`.
+   */
   return messages.map((message) => ({
     ...message,
     count_likes: Number(message.count_likes),
